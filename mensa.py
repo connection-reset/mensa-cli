@@ -11,9 +11,13 @@ _MENSA_URL = "http://www.uni-bremen.de/service/taeglicher-bedarf/essen-auf-dem-c
 def _clean(html):
     clean = html.replace("<br>", "\n").replace("</br>", "")
     clean = clean.replace("&amp;", "&")
+    clean = clean.replace("&gt;", ">").replace("&lt;", "<")
     clean = clean.replace("\n&\n", " & ").replace("\n&", " &")
 
     clean = clean.replace("<strong>", "{} ".format("+" * 4)).replace("</strong>", " {}".format("+" * 4))
+    clean = re.sub(r'\n{3,}', "\n\n", clean)
+    clean = re.sub(r' +', " ", clean)
+    clean = re.sub(r' ?\n ?(an|in|mit|dazu) ?\n?', r' \1 ', clean)
     return clean
 
 def _get_mensa_info():
