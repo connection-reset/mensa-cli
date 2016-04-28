@@ -1,3 +1,3 @@
 mensa-cli
 =========
-Command line interface to get the menu of the University of Bremen's cafeteria.
+Command line interface to read the menu of the University of Bremen's cafeteria from the terminal.
