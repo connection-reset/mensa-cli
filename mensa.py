@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import argparse
-import os
 import urllib.request
 from bs4 import BeautifulSoup
 import re
