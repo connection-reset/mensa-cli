@@ -35,11 +35,12 @@ def get_food_plan(html, food_plan_id):
 
 def get_available_food_plans(html):
     food_plans = []
-    c = parsedatetime.Calendar()
+    pdt_locale = parsedatetime.Constants("de_DE", usePyICU=False)
+    pdt = parsedatetime.Calendar(pdt_locale)
     links = html.find_all("a", href=re.compile(r"#food-plan-\d"))
     for link in links:
         date_string = link.find("span", class_="tab-date").get_text()
-        time_struct, err = c.parse(date_string)
+        time_struct, err = pdt.parse(date_string)
         if err == 0:
             #should not happen
             raise ValueError((time_struct, err))
