@@ -11,13 +11,16 @@ import requests
 
 def normalize(string):
     generator = map(str.strip, string.splitlines())
-    line_parts = list()
-    while True:
-        l = list(itertools.takewhile(lambda x: x != "", generator))
-        if len(l) == 0:
-            break
-        line_parts.append(" ".join(l))
-    return ", ".join(line_parts)
+    #sometimes there are useless empty lines
+    #but sometimes they seperate meal from dessert
+    words = [[]]
+    for g in generator:
+        if g == "":
+            if words[-1]:
+                words.append([])
+            continue
+        words[-1].append(g)
+    return ", ".join([" ".join(w) for w in words])
 
 def clean(html):
     html = copy.copy(html)
